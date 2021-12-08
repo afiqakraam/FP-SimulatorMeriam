@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -109,14 +111,29 @@ public class MainMenu extends JFrame {
         playButton.setHorizontalAlignment(JLabel.CENTER);
         playButton.setBackground(Color.black);
         playButton.setForeground(Color.white);
+        playButton.addActionListener(new PlayGameListener(gameLevel));
         buttonsPanel.add(playButton);
         
         add(buttonsPanel, BorderLayout.CENTER);
+
         
 
         pack();
         setLocationRelativeTo(null);
     }
 
+    private class PlayGameListener implements ActionListener{
+        private int lv;
+
+        public PlayGameListener(int lv){
+            this.lv = lv;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+            setVisible(false);
+            new GameFrame(MainMenu.this, playerName.getText(), lv).setVisible(true);
+        }
+    }
    
 }
