@@ -18,7 +18,7 @@ public class GamePanel extends JPanel{
 	private final int FPS = 60;
 	private double averageFPS;
 	
-	public static Enemy enemies;
+	public static Enemy enemies = new Enemy(1, 1);
 	
     public GamePanel(double spawnTime, GameFrame.ScoreManager sManager){
     	
@@ -29,5 +29,18 @@ public class GamePanel extends JPanel{
 
 		
     }
+
+	@Override
+	protected void paintComponent(Graphics g){
+		Graphics2D g2d = (Graphics2D) g;
+		super.paintComponent(g);
+		enemies.draw(g2d);
+	}
+
+	public interface Drawable{
+		public void draw(Graphics2D g);
+	}
+
+	
 	
 }
