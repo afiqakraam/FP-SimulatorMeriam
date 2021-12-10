@@ -61,6 +61,15 @@ public class MainMenu extends JFrame {
         highScoreButton.setForeground(Color.white);
         buttonsPanel.add(highScoreButton);
 
+        JButton aboutButton = new JButton("About Game");
+        aboutButton.setFont(normalFont);
+        aboutButton.setHorizontalAlignment(JLabel.CENTER);
+        aboutButton.setBackground(Color.black);
+        aboutButton.setForeground(Color.white);
+        buttonsPanel.add(aboutButton);
+        aboutButton.addActionListener(new Aboutgame());
+
+
     // -------------------- LEVEL -------------------- //
         JPanel levelPanel = new JPanel();
         FlowLayout levelLayout = new FlowLayout();
@@ -122,6 +131,13 @@ public class MainMenu extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    private class Aboutgame implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            setVisible(false);
+            new About();
+        }
+    }
     private class PlayGameListener implements ActionListener{
         private int lv;
 
