@@ -33,6 +33,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         // setSize(800, 600);
         setResizable(false);
+        setBackground(Color.black);
 
         // Main Menu
         this.mainMenu = mainMenu;
@@ -90,18 +91,8 @@ public class GameFrame extends JFrame {
 		headerPanel.add(scorePanel, BorderLayout.CENTER);
 
         add(headerPanel, BorderLayout.NORTH);
-
-        // Atur Game Panel
-        double spawnTime;
-        if (lv == 1) // -> spawnTime bisa berubah untuk penyesuaian game
-            spawnTime = 2000;
-        else if (lv == 2)
-            spawnTime = 1000;
-        else
-            spawnTime = 500;
-
-
-        gamePanel = new GamePanel(spawnTime, scoreManager);
+        
+        gamePanel = new GamePanel(lv, scoreManager);
         add(gamePanel, BorderLayout.CENTER);
 
         pack();
