@@ -57,7 +57,7 @@ public class Enemy {
     		}
     		else if(level == 3) {
     			speed = 10;
-    			radius = 10;
+    			radius = 50;
     			lives = 1;
     			spawntime = 3;
     		}
@@ -79,7 +79,7 @@ public class Enemy {
     		
     		else if(level == 3 ) {
     			speed = 12;
-    			radius = 7;
+    			radius = 50;
     			lives = 1;
     			spawntime = 2;
     		}
@@ -146,15 +146,41 @@ public class Enemy {
     public void setHit(boolean b) {this.hit = b;}
     public void setSlow(boolean b) {slow = b;}
 	
-    public void update() {
-    	if(ready == false) {
-    		if(x > radius && x < GamePanel.WIDTH - radius 
-    		  && y > (radius + 100) && y < GamePanel.HEIGHT - radius) {
-    			
-    			ready = true;
-    		}
-    	}
-    	checkBoundaries();
+    public void update()
+    {
+        
+        if(slow == true)
+        {
+            x += dx * 0.5;
+            // y += dy * 0.5;
+        }
+        else
+        {
+            x += dx;
+            // y += dy;
+        }
+        
+        
+        if(ready == false)
+        {
+            if(x > radius && x < GamePanel.WIDTH - radius &&
+               y > (radius + 100) && y < GamePanel.HEIGHT - radius)
+            {
+                ready = true;
+            }
+        }
+        
+        checkBoundaries();
+        
+        if(hit == true)
+        {
+            long elapsedTime = (System.nanoTime() - hitTimer) / 1000000;
+            if(elapsedTime > 50)
+            {
+                hit = false;
+                hitTimer = 0;
+            }
+        }
     }
     
     public void draw(Graphics2D g) {
