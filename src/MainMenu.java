@@ -63,6 +63,13 @@ public class MainMenu extends JFrame {
         highScoreButton.setForeground(Color.white);
         buttonsPanel.add(highScoreButton);
 
+        highScoreButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+                new HighScore(MainMenu.this).setVisible(true);
+			}
+		});
+
         JButton aboutButton = new JButton("About Game");
         about = new About();
         aboutButton.setFont(normalFont);
