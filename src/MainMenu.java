@@ -21,6 +21,8 @@ public class MainMenu extends JFrame {
     Font normalFont = new Font("Monospaced", Font.PLAIN, 20);
     JTextField playerName;
     int gameLevel = 1;
+    private About about;
+    
     
     public MainMenu(){
         super("Simulator Meriam - Main Menu");
@@ -62,13 +64,18 @@ public class MainMenu extends JFrame {
         buttonsPanel.add(highScoreButton);
 
         JButton aboutButton = new JButton("About Game");
+        about = new About();
         aboutButton.setFont(normalFont);
         aboutButton.setHorizontalAlignment(JLabel.CENTER);
         aboutButton.setBackground(Color.black);
         aboutButton.setForeground(Color.white);
         buttonsPanel.add(aboutButton);
-        aboutButton.addActionListener(new Aboutgame());
 
+        aboutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				about.setVisible(true);
+			}
+		});
 
     // -------------------- LEVEL -------------------- //
         JPanel levelPanel = new JPanel();
@@ -131,13 +138,6 @@ public class MainMenu extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private class Aboutgame implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e){
-            setVisible(false);
-            new About();
-        }
-    }
     private class PlayGameListener implements ActionListener{
         private int lv;
 
