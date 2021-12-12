@@ -135,7 +135,7 @@ public class MainMenu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e){
             setVisible(false);
-            new About();
+            new About(MainMenu.this);
         }
     }
     private class PlayGameListener implements ActionListener{

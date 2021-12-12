@@ -33,23 +33,22 @@ public class Cannon {
 	private int size;
 	private int power;
 	
-	// private ArrayList<Ball> balls = new ArrayList<Ball>();
+	private ArrayList<Ball> balls = new ArrayList<Ball>();
 	
 	//----------------------------------------------------------//
 	
 	public Cannon() {
 	}
 	
-	public Graphics2D draw(Graphics2D g) {
+	public Graphics2D draw(Graphics2D g, int angle, int size, int power) {
 		
 		this.angle = angle;
 		this.size = size;
 		this.power = power;
 		
-		// g = drawBalls(g);
+		g = drawBalls(g);
 		g = drawCannon(g);
 		g = drawButtons(g);
-		// g = drawColorSelection(g);
 		
 		return g;
 		
@@ -90,31 +89,31 @@ public class Cannon {
 		
 		return g;
 	}
-	
-	// private Graphics2D drawBalls(Graphics2D g) {
-		
-	// 	//If fire button is clicked
-	// 	if (GamePanel.click == true && GamePanel.cursorX > fireButtonX && GamePanel.cursorX < fireButtonX + fireButtonWidth && GamePanel.cursorY > fireButtonY && GamePanel.cursorY < fireButtonY + fireButtonHeight) {
-	// 		balls.add(new Ball(ballX, ballY, diameter, (int) (((double) power * -1) - ((double) power * -1) / ((double) 157) * (angle * -1)), (int) (((double) power * -1) / ((double) 157) * (angle * -1)), colorSelected));
-	// 		GamePanel.click = false;
-	// 	}
-		
-	// 	//If clear button is clicked
-	// 	if (GamePanel.click == true && GamePanel.cursorX > clearButtonX && GamePanel.cursorX < clearButtonX + fireButtonWidth && GamePanel.cursorY > clearButtonY && GamePanel.cursorY < clearButtonY + clearButtonHeight) {
-	// 		balls.removeAll(balls);
-	// 		GamePanel.click = false;
-	// 	}
-		
-	// 	//Draw balls
-	// 	for (int i = 0; i < balls.size(); i++) {
-	// 		g.setColor(balls.get(i).getColor());
-	// 		g.fillOval(balls.get(i).getX(), balls.get(i).getY(), balls.get(i).getDiameter(), balls.get(i).getDiameter());
-	// 		balls.get(i).update();
-			
-	// 	}
 
-	// 	return g;
-	// }
+	private Graphics2D drawBalls(Graphics2D g) {
+		
+		//If fire button is clicked
+		if (GamePanel.click == true && GamePanel.cursorX > fireButtonX && GamePanel.cursorX < fireButtonX + fireButtonWidth && GamePanel.cursorY > fireButtonY && GamePanel.cursorY < fireButtonY + fireButtonHeight) {
+			balls.add(new Ball(ballX, ballY, diameter, (int) (((double) power * -1) - ((double) power * -1) / ((double) 157) * (angle * -1)), (int) (((double) power * -1) / ((double) 157) * (angle * -1)), colorSelected));
+			GamePanel.click = false;
+		}
+		
+		//If clear button is clicked
+		if (GamePanel.click == true && GamePanel.cursorX > clearButtonX && GamePanel.cursorX < clearButtonX + fireButtonWidth && GamePanel.cursorY > clearButtonY && GamePanel.cursorY < clearButtonY + clearButtonHeight) {
+			balls.removeAll(balls);
+			GamePanel.click = false;
+		}
+		
+		//Draw balls
+		for (int i = 0; i < balls.size(); i++) {
+			g.setColor(balls.get(i).getColor());
+			g.fillOval(balls.get(i).getX(), balls.get(i).getY(), balls.get(i).getDiameter(), balls.get(i).getDiameter());
+			balls.get(i).update();
+			
+		}
+
+		return g;
+	}
 	
 	private Graphics2D drawButtons(Graphics2D g) {
 		
@@ -137,34 +136,6 @@ public class Cannon {
 		
 		return g;
 	}
-	
-	// private Graphics2D drawColorSelection(Graphics2D g) {
-		
-	// 	g.setColor(Color.BLACK);
-	// 	Font f = new Font("Calibri", Font.BOLD, 24);
-	// 	g.setFont(f);
-	// 	g.drawString("Color", colorSelectionX, colorSelectionY - 12);
-		
-	// 	Color[] boxColors = new Color[]{new Color(85, 85, 85), new Color(3, 61, 180), new Color(255, 0, 0), new Color(27, 137, 60), new Color(255, 177, 14), new Color(164, 73, 164)};
-
-	// 	for (int i = 0; i < boxColors.length; i++){
-	// 		if (boxColors[i].getRGB() == colorSelected.getRGB()) {
-	// 			g.setColor(Color.BLACK); //Draw the black frame around selected color
-	// 			g.fillRect(colorSelectionX + colorBoxWidth * i * 2 - 4, colorSelectionY - 4, colorBoxWidth + 8, colorBoxWidth + 8);
-	// 		}
-	// 		//Draw colors
-	// 		g.setColor(boxColors[i]);
-	// 		g.fillRect(colorSelectionX + colorBoxWidth * i * 2, colorSelectionY, colorBoxWidth, colorBoxWidth);
-			
-	// 		//If the color is clicked select it
-	// 		if (GamePanel.click == true && GamePanel.cursorX > (colorSelectionX + colorBoxWidth * i * 2) && GamePanel.cursorX < (colorSelectionX + colorBoxWidth * i * 2) + colorBoxWidth && GamePanel.cursorY > colorSelectionY && GamePanel.cursorY < colorSelectionY + colorBoxWidth) {
-	// 			colorSelected = boxColors[i];
-	// 			GamePanel.click = false;
-	// 		}
-	// 	}
-		
-	// 	return g;
-	// }
 	
 	private int[] rotateXY(int x, int y, int angle, int cx, int cy) {
 		

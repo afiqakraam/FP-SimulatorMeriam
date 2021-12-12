@@ -31,7 +31,6 @@ public class GameFrame extends JFrame {
     public GameFrame(MainMenu mainMenu, String playerName, int lv){
         super("Simulator Meriam : " + playerName);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        // setSize(800, 600);
         setResizable(false);
         setBackground(Color.black);
 

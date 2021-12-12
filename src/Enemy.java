@@ -183,7 +183,7 @@ public class Enemy {
         }
     }
     
-    public void draw(Graphics2D g) {
+    public Graphics2D draw(Graphics2D g) {
     	if(hit == false) {
     		g.setColor(color1);
     		g.fillOval((int) (x-radius),(int)(y-radius),(2*radius),(2*radius));
@@ -200,6 +200,7 @@ public class Enemy {
             g.drawOval((int) (x - radius), (int) (y - radius), 2 * radius, 2 * radius);
             g.setStroke(new BasicStroke(1));
     	}
+		return g;
     }
     
     private void checkBoundaries(){
