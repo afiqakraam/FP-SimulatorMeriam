@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			gameRender();
 			gameDraw();
 			
-			
+			enemy1.update();
 			//fps
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
 			waitTime = targetTime - URDTimeMillis;
