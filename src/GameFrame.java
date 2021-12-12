@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 public class GameFrame extends JFrame {
     
     // Nilai awal
@@ -26,6 +27,7 @@ public class GameFrame extends JFrame {
     private JLabel scoreDisplay;
 
     private ScoreManager scoreManager;
+    private String highScore;
 
 
     public GameFrame(MainMenu mainMenu, String playerName, int lv){
@@ -37,7 +39,8 @@ public class GameFrame extends JFrame {
 
         // Main Menu
         this.mainMenu = mainMenu;
-
+	// High Score
+        highScore = this.getHighScore();
         // Score Manager
         scoreManager = new ScoreManager(STARTING_LIFE, STARTING_SCORE);
 
@@ -98,7 +101,10 @@ public class GameFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }
-
+    private String getHighScore() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
     @Override
     public void dispose(){
@@ -148,6 +154,26 @@ public class GameFrame extends JFrame {
                 GameFrame.this.dispose();
             }
         }
+	public String getHighScore() { 
+            FileReader readFile = null;
+            BufferedReader reader = null;
+            try {
+                readFile = new FileReader("highscore.txt");
+                reader = new BufferedReader(readFile);
+                return reader.readLine(); 
+            }
+            catch (Exception e) {
+                return "Nobody:0"; 
+            }
+            finally {
+                try {
+                    if (reader != null)
+                    reader. close();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            } 
+        }
     }
-    
 }
