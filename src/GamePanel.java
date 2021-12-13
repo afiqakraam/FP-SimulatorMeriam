@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class GamePanel extends JPanel implements Runnable, MouseListener, MouseMotionListener{
 	
 	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 1000;
+	public static final int HEIGHT = 600;
 	
 	private Thread thread;
 	private boolean running;
@@ -26,9 +26,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public static Enemy enemy3 = new Enemy(1, 3);
 	
 	
-	private SliderInput angleSlider = new SliderInput(50, 155, 157, 0, "Angle");
-	private SliderInput sizeSlider = new SliderInput(50, 225, 0, 75, "Size");
-	private SliderInput powerSlider = new SliderInput(50, 295, 150, 0, "Power");
+	private SliderInput angleSlider = new SliderInput(50, 70, 157, 0, "Angle");
+	private SliderInput sizeSlider = new SliderInput(50, 140, 0, 75, "Size");
+	private SliderInput powerSlider = new SliderInput(50, 210, 150, 0, "Power");
 	private Cannon cannon = new Cannon();
 	
     public GamePanel(double spawnTime, GameFrame.ScoreManager sManager){
@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		enemies = new ArrayList<Enemy>();
+		createEnemies();
 		
     }
 
@@ -77,9 +78,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			// enemy3.update();
 			// enemy4.update();
 
-			for(int i = 0; i < enemies.size(); i++) {
-				enemies.get(i).update();
-			}
 
 
 			//fps
@@ -110,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g = powerSlider.draw(g);
 		
 		//Draw enemies Enemies manual declaration
-		// g = enemy1.draw(g);
+		g = enemy1.draw(g);
 		// g = enemy2.draw(g);
 		// g = enemy3.draw(g);
 		// g = enemy4.draw(g);
@@ -120,7 +118,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		for(int i  = 0; i < enemies.size(); i++){
 			g=enemies.get(i).draw(g);
 		}
-		createEnemies();
 		
 	}
 

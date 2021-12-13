@@ -202,12 +202,13 @@ public class Enemy {
             g.drawOval((int) (x - radius), (int) (y - radius), 2 * radius, 2 * radius);
             g.setStroke(new BasicStroke(1));
     	}
+		update();
 		return g;
     }
     
     private void checkBoundaries()
     {
-        if(x < radius && dx < 0)
+        if(x < GamePanel.WIDTH/2-GamePanel.WIDTH/6 && dx < 0)
         {
             dx = -dx;
         }
