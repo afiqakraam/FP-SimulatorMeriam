@@ -117,12 +117,19 @@ public class MainMenu extends JFrame {
         levelGroup.add(hard);
 
         // level variables
-        if(easy.isSelected())
+        if(easy.isSelected()){
             gameLevel = 1;
-        else if (medium.isSelected())
-            gameLevel = 2;
-        else
+            
+        }
+            
+        else if (medium.isSelected()){
+             gameLevel = 2;
+        }
+           
+        else{
             gameLevel = 3;
+        }
+           
 
 
         buttonsPanel.add(levelPanel);

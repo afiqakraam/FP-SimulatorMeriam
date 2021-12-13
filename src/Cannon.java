@@ -23,7 +23,7 @@ public class Cannon {
 	private int diameter = 100;
 	private int width = 300;
 
-	private int x = 500;
+	private int x = 120;
 	private int y = GamePanel.HEIGHT - diameter - 50;
 
 	private int ballX;
@@ -33,7 +33,7 @@ public class Cannon {
 	private int size;
 	private int power;
 
-	private ArrayList<Ball> balls = new ArrayList<Ball>();
+	public ArrayList<Ball> balls = new ArrayList<Ball>();
 
 	// ----------------------------------------------------------//
 

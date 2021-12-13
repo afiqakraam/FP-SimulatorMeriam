@@ -12,18 +12,20 @@ import java.awt.image.BufferedImage;
 public class GamePanel extends JPanel implements Runnable, MouseListener, MouseMotionListener{
 	
 	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 600;
+	public static final int HEIGHT = 1000;
 	
 	private Thread thread;
 	private boolean running;
 	private BufferedImage image;
 	private Graphics2D g;
 	private int fps = 60;
-
+	public static ArrayList<Enemy> enemies;
 	public static Enemy enemy1 = new Enemy(1, 3);
 	public static Enemy enemy2 = new Enemy(2, 3);
 	public static Enemy enemy4 = new Enemy(3, 3);
 	public static Enemy enemy3 = new Enemy(1, 3);
+	
+	
 	private SliderInput angleSlider = new SliderInput(50, 155, 157, 0, "Angle");
 	private SliderInput sizeSlider = new SliderInput(50, 225, 0, 75, "Size");
 	private SliderInput powerSlider = new SliderInput(50, 295, 150, 0, "Power");
@@ -37,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		requestFocus();
 		addMouseMotionListener(this);
 		addMouseListener(this);
-
+		enemies = new ArrayList<Enemy>();
 		
     }
 
@@ -69,7 +71,17 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			gameRender();
 			gameDraw();
 			
-			enemy1.update();
+			// Enemies manual declaration
+			// enemy1.update();
+			// enemy2.update();
+			// enemy3.update();
+			// enemy4.update();
+
+			for(int i = 0; i < enemies.size(); i++) {
+				enemies.get(i).update();
+			}
+
+
 			//fps
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
 			waitTime = targetTime - URDTimeMillis;
@@ -97,10 +109,29 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g = sizeSlider.draw(g);
 		g = powerSlider.draw(g);
 		
-		// Enemy
-		g = enemy1.draw(g);
-
+		//Draw enemies Enemies manual declaration
+		// g = enemy1.draw(g);
+		// g = enemy2.draw(g);
+		// g = enemy3.draw(g);
+		// g = enemy4.draw(g);
+		// g = enemy2.draw(g);
 		
+		//Draw Array of Enemies
+		for(int i  = 0; i < enemies.size(); i++){
+			g=enemies.get(i).draw(g);
+		}
+		createEnemies();
+		
+	}
+
+	public void createEnemies(){
+		int difficulties = 1;
+		enemies.clear();
+		if(difficulties == 1){
+			for(int i = 0; i < 3; i++){
+				enemies.add(new Enemy(2,3));
+			}
+		}
 	}
 
 	private void gameDraw() {
@@ -108,6 +139,20 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
 	}
+
+	//if object is colliding
+	private boolean isColliding(double x1, double y1, double x2, double y2, int r1, int r2)
+    {
+        double dx = x1 - x2;
+        double dy = y1 - y2;
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if(distance < r1 + r2)
+        {
+            return true;
+        }
+        return false;
+    }
 	
 	//-------------------- MOUSE LISTENING -----------------//
 	static boolean dragging = false;

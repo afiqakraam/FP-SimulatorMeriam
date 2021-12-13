@@ -9,6 +9,7 @@ public class Enemy {
 	private double y;
 	
 	private double dx;
+	private double dy;
 	
 	//radius of the enemies
 	private int radius;
@@ -110,12 +111,13 @@ public class Enemy {
     	color2 = Color.RED;
     	
     	x = Math.random()*GamePanel.WIDTH/2 + GamePanel.WIDTH/4;
-    	y = (radius + 150);
+    	y = (radius + 100);
     	
     	double angle = Math.random() * 140 + 20;
     	double radians = Math.toRadians(angle);
     	
     	dx = Math.cos(radians) * speed;
+		dy = Math.sin(radians) * speed;
     	
     	ready = false;
     	hit = false;
@@ -127,7 +129,7 @@ public class Enemy {
     public double getX() {return x;}
     public double getY() {return y;}
     public double getDx() {return dx;}
-//  public double getDy() {return dy;}
+ 	public double getDy() {return dy;}
     public int getRadius() {return radius;}
     public double getSpeed() {return speed;}
     public int getType() {return type;}
@@ -139,7 +141,7 @@ public class Enemy {
     public void setX(double x) {this.x = x;}
     public void setY(double y) {this.y = y;}
     public void setDx(double dx) {this.dx = dx;}
-//  public void setDy(double dy) {this.dy = dy;}
+	public void setDy(double dy) {this.dy = dy;}
     public void setRadius(int radius) {this.radius = radius;}
     public void setSpeed(double speed) {this.speed = speed;}
     public void setLives(int lives) {this.lives = lives;}
@@ -152,12 +154,12 @@ public class Enemy {
         if(slow == true)
         {
             x += dx * 0.5;
-            // y += dy * 0.5;
+            y += dy * 0.5;
         }
         else
         {
             x += dx;
-            // y += dy;
+            y += dy;
         }
         
         
@@ -203,14 +205,26 @@ public class Enemy {
 		return g;
     }
     
-    private void checkBoundaries(){
-    	//jika menyentuh ujung frame arahnya dibalik
-    	if(x < radius && dx < 0) {
-    		dx = -dx;
-    	}
-    	if(x > GamePanel.WIDTH - radius && dx > 0)
+    private void checkBoundaries()
+    {
+        if(x < radius && dx < 0)
         {
             dx = -dx;
+        }
+        
+        if(x > GamePanel.WIDTH - radius && dx > 0)
+        {
+            dx = -dx;
+        }
+        
+        if(y < (radius) && dy < 0)
+        {
+            dy = -dy;
+        }
+        
+        if(y > 500 - radius && dy > 0)
+        {
+            dy = -dy;
         }
     }
 	
