@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
@@ -20,8 +22,14 @@ public class MainMenu extends JFrame {
     Font titleFont = new Font("Monospaced", Font.PLAIN, 40);
     Font normalFont = new Font("Monospaced", Font.PLAIN, 20);
     JTextField playerName;
-    int gameLevel = 1;
+    public int gameLevel;
     private About about;
+
+    JRadioButton easy;
+    JRadioButton medium;
+    JRadioButton hard;
+
+    
     
     
     public MainMenu(){
@@ -92,17 +100,17 @@ public class MainMenu extends JFrame {
         levelPanel.setBackground(Color.black);
 
         // Level - easy
-        JRadioButton easy = new JRadioButton("Easy", true);
+        easy = new JRadioButton("Easy", true);
         easy.setBackground(Color.green);
         easy.setFont(normalFont);
 
         // Level - medium
-        JRadioButton medium = new JRadioButton("Medium", false);
+        medium = new JRadioButton("Medium", false);
         medium.setBackground(Color.orange);
         medium.setFont(normalFont);
 
         // Level - hard
-        JRadioButton hard = new JRadioButton("Hard", false);
+        hard = new JRadioButton("Hard", false);
         hard.setBackground(Color.red);
         hard.setFont(normalFont);
 
@@ -116,23 +124,13 @@ public class MainMenu extends JFrame {
         levelGroup.add(medium);
         levelGroup.add(hard);
 
-        // level variables
-        if(easy.isSelected()){
-            gameLevel = 1;
-            
-        }
-            
-        else if (medium.isSelected()){
-             gameLevel = 2;
-        }
-           
-        else{
-            gameLevel = 3;
-        }
-           
-
-
         buttonsPanel.add(levelPanel);
+
+        easy.addItemListener(new LevelListener(1));
+        medium.addItemListener(new LevelListener(2));
+        hard.addItemListener(new LevelListener(3));
+
+
 
     // -------------------------------------------------- //
 
@@ -153,17 +151,29 @@ public class MainMenu extends JFrame {
     }
 
     private class PlayGameListener implements ActionListener{
-        private int lv;
 
         public PlayGameListener(int lv){
-            this.lv = lv;
+            gameLevel = lv;
         }
 
         @Override
         public void actionPerformed(ActionEvent e){
             setVisible(false);
-            new GameFrame(MainMenu.this, playerName.getText(), lv).setVisible(true);
+            new GameFrame(MainMenu.this, playerName.getText(), gameLevel).setVisible(true);
         }
+    }
+
+    private class LevelListener implements ItemListener{
+        private int lv;
+        public LevelListener(int l){
+            lv = l;
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent event){
+            gameLevel = lv;
+        }
+
     }
    
 }

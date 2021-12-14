@@ -194,7 +194,7 @@ public class Enemy {
     		g.setStroke(new BasicStroke(1));
     	}
     	else {
-			spawntime -= 1000;
+			spawntime -= 13;
 			System.out.println(spawntime);
     	}
 		update();

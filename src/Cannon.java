@@ -120,7 +120,7 @@ public class Cannon {
 						System.out.println("HIT");
 						// balls.clear();
 						GamePanel.enemies.get(j).setHit(true);
-						GamePanel.enemies.get(j).setSpawntime(50000);		
+						GamePanel.enemies.get(j).setSpawntime(GamePanel.spawntime);		
 				}
 			}
 
