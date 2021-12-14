@@ -119,7 +119,6 @@ public class MainMenu extends JFrame {
         // level variables
         if(easy.isSelected()){
             gameLevel = 1;
-            
         }
             
         else if (medium.isSelected()){

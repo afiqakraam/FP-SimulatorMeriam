@@ -8,11 +8,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.Timer;
 
 public class GamePanel extends JPanel implements Runnable, MouseListener, MouseMotionListener{
 	
-	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1920;
+	public static final int HEIGHT = 970;
 	
 	private Thread thread;
 	private boolean running;
@@ -20,12 +21,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private Graphics2D g;
 	private int fps = 60;
 	public static ArrayList<Enemy> enemies;
-	public static Enemy enemy1 = new Enemy(1, 3);
-	public static Enemy enemy2 = new Enemy(2, 3);
-	public static Enemy enemy4 = new Enemy(3, 3);
-	public static Enemy enemy3 = new Enemy(1, 3);
-	
-	
+	public ArrayList<Ball> balls = new ArrayList<Ball>(); 
 	private SliderInput angleSlider = new SliderInput(50, 70, 157, 0, "Angle");
 	private SliderInput sizeSlider = new SliderInput(50, 140, 0, 75, "Size");
 	private SliderInput powerSlider = new SliderInput(50, 210, 150, 0, "Power");
@@ -40,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		enemies = new ArrayList<Enemy>();
+		balls = new ArrayList<Ball>();
 		createEnemies();
 		
     }
@@ -71,14 +68,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			
 			gameRender();
 			gameDraw();
-			
-			// Enemies manual declaration
-			// enemy1.update();
-			// enemy2.update();
-			// enemy3.update();
-			// enemy4.update();
-
-
 
 			//fps
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
@@ -89,6 +78,28 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			catch (Exception e) {}
 			
 		}
+		for(int i = 0; i < balls.size(); i++)
+        {
+            Ball b = balls.get(i);
+            double bx = b.getX();
+            double by = b.getY();
+            int br = b.getDiameter();
+            for(int j = 0; j < enemies.size(); j++)
+            {
+                Enemy e = enemies.get(j);
+                double ex = e.getX();
+                double ey = e.getY();
+                int er = e.getRadius();
+                
+                if(isColliding(bx, by, ex, ey, br, er) == true)
+                {
+                    // e.loseLife(1);
+                    balls.remove(i);
+                    i--;
+                    break;
+                }
+            }
+        }
 	}
 
 	private void gameRender() {
@@ -107,13 +118,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g = sizeSlider.draw(g);
 		g = powerSlider.draw(g);
 		
-		//Draw enemies Enemies manual declaration
-		g = enemy1.draw(g);
-		// g = enemy2.draw(g);
-		// g = enemy3.draw(g);
-		// g = enemy4.draw(g);
-		// g = enemy2.draw(g);
-		
 		//Draw Array of Enemies
 		for(int i  = 0; i < enemies.size(); i++){
 			g=enemies.get(i).draw(g);
@@ -124,9 +128,41 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public void createEnemies(){
 		int difficulties = 1;
 		enemies.clear();
+		// EASY LEVEL
 		if(difficulties == 1){
+			for(int i = 0; i < 3; i++){				
+				enemies.add(new Enemy(1,1));
+				
+			}
 			for(int i = 0; i < 3; i++){
+				enemies.add(new Enemy(2,1));
+			}
+			for(int i = 0; i < 3; i++){
+				enemies.add(new Enemy(3,1));
+			}
+		}
+		//MEDIUM LEVEL
+		if(difficulties == 2){
+			for(int i = 0; i < 4; i++){
+				enemies.add(new Enemy(1,2));
+			}
+			for(int i = 0; i < 4; i++){
+				enemies.add(new Enemy(2,2));
+			}
+			for(int i = 0; i < 5; i++){
+				enemies.add(new Enemy(3,2));
+			}
+		}
+		//HARD LEVEL
+		if(difficulties == 3){
+			for(int i = 0; i < 5; i++){
+				enemies.add(new Enemy(1,3));
+			}
+			for(int i = 0; i < 5; i++){
 				enemies.add(new Enemy(2,3));
+			}
+			for(int i = 0; i < 6; i++){
+				enemies.add(new Enemy(3,3));
 			}
 		}
 	}

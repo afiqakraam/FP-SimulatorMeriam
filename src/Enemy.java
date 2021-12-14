@@ -223,7 +223,7 @@ public class Enemy {
             dy = -dy;
         }
         
-        if(y > 500 - radius && dy > 0)
+        if(y > 700 - radius && dy > 0)
         {
             dy = -dy;
         }
