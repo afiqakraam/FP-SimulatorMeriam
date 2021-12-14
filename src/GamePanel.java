@@ -31,14 +31,14 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private SliderInput powerSlider = new SliderInput(50, 210, 150, 0, "Power");
 	private Cannon cannon = new Cannon();
 	
-    public GamePanel(double spawnTime, GameFrame.ScoreManager sManager){
-    	
+    public GamePanel(double lv, GameFrame.ScoreManager sManager){
     	super();
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		setFocusable(true);
 		requestFocus();
 		addMouseMotionListener(this);
 		addMouseListener(this);
+
 		enemies = new ArrayList<Enemy>();
 		createEnemies();
 		
@@ -72,13 +72,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			gameRender();
 			gameDraw();
 			
-			// Enemies manual declaration
-			// enemy1.update();
-			// enemy2.update();
-			// enemy3.update();
-			// enemy4.update();
-
-
 
 			//fps
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
@@ -108,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g = powerSlider.draw(g);
 		
 		//Draw enemies Enemies manual declaration
-		g = enemy1.draw(g);
+		// g = enemy1.draw(g);
 		// g = enemy2.draw(g);
 		// g = enemy3.draw(g);
 		// g = enemy4.draw(g);
@@ -136,20 +129,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
 	}
-
-	//if object is colliding
-	private boolean isColliding(double x1, double y1, double x2, double y2, int r1, int r2)
-    {
-        double dx = x1 - x2;
-        double dy = y1 - y2;
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if(distance < r1 + r2)
-        {
-            return true;
-        }
-        return false;
-    }
 	
 	//-------------------- MOUSE LISTENING -----------------//
 	static boolean dragging = false;

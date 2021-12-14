@@ -25,11 +25,10 @@ public class Enemy {
 	private int lives;
 	
 	//Timer enemies
-	private int spawntime;
+	private long spawntime;
 	
 	//color of the enemies
 	private Color color1;
-	private Color color2;
 	
 	private boolean ready;
     private boolean hit;
@@ -48,19 +47,19 @@ public class Enemy {
     			speed = 6;
     			radius = 20;
     			lives = 1;
-    			spawntime = 5;
+    			spawntime = 0;
     		}
     		else if(level == 2) {
     			speed = 8;
     			radius = 15;
     			lives = 1;
-    			spawntime = 4;
+    			spawntime = 0;
     		}
     		else if(level == 3) {
     			speed = 10;
     			radius = 50;
     			lives = 1;
-    			spawntime = 3;
+    			spawntime = 0;
     		}
     	}
     	else if (type == 2) {
@@ -69,20 +68,20 @@ public class Enemy {
     			speed = 8;
     			radius = 15;
     			lives = 1;
-    			spawntime = 2;
+    			spawntime = 0;
     		}
     		else if(level == 2 ) {
     			speed = 10;
     			radius = 10;
     			lives = 1;
-    			spawntime = 2;
+    			spawntime = 0;
     		}
     		
     		else if(level == 3 ) {
     			speed = 12;
     			radius = 50;
     			lives = 1;
-    			spawntime = 2;
+    			spawntime = 0;
     		}
     	}
     	
@@ -92,23 +91,22 @@ public class Enemy {
     			speed = 8;
     			radius = 15;
     			lives = 1;
-    			spawntime = 2;
+    			spawntime = 0;
     		}
     		else if(level == 2 ) {
     			speed = 10;
     			radius = 10;
     			lives = 1;
-    			spawntime = 2;
+    			spawntime = 0;
     		}
     		
     		else if(level == 3 ) {
     			speed = 12;
     			radius = 7;
     			lives = 1;
-    			spawntime = 2;
+    			spawntime = 0;
     		}
     	}
-    	color2 = Color.RED;
     	
     	x = Math.random()*GamePanel.WIDTH/2 + GamePanel.WIDTH/4;
     	y = (radius + 100);
@@ -147,6 +145,7 @@ public class Enemy {
     public void setLives(int lives) {this.lives = lives;}
     public void setHit(boolean b) {this.hit = b;}
     public void setSlow(boolean b) {slow = b;}
+	public void setSpawntime(long t){this.spawntime = t;}
 	
     public void update()
     {
@@ -186,7 +185,7 @@ public class Enemy {
     }
     
     public Graphics2D draw(Graphics2D g) {
-    	if(hit == false) {
+    	if(hit == false && spawntime == 0) {
     		g.setColor(color1);
     		g.fillOval((int) (x-radius),(int)(y-radius),(2*radius),(2*radius));
     		g.setStroke(new BasicStroke(3));
@@ -195,12 +194,8 @@ public class Enemy {
     		g.setStroke(new BasicStroke(1));
     	}
     	else {
-    		g.setColor(color2);
-            g.fillOval((int) (x - radius), (int) (y - radius), 2 * radius, 2 * radius);
-            g.setStroke(new BasicStroke(3));
-            g.setColor(color2.darker());
-            g.drawOval((int) (x - radius), (int) (y - radius), 2 * radius, 2 * radius);
-            g.setStroke(new BasicStroke(1));
+			spawntime -= 1000;
+			System.out.println(spawntime);
     	}
 		update();
 		return g;
@@ -223,7 +218,7 @@ public class Enemy {
             dy = -dy;
         }
         
-        if(y > 500 - radius && dy > 0)
+        if(y > 550 - radius && dy > 0)
         {
             dy = -dy;
         }
