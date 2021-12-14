@@ -19,7 +19,15 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private BufferedImage image;
 	private Graphics2D g;
 	private int fps = 60;
+
 	public static ArrayList<Enemy> enemies;
+
+	public static long spawntime;
+	public static long gameTime;
+	private int timeDisplay;
+	public static GameFrame.ScoreManager scoreManager;
+	
+
 	public static Enemy enemy1 = new Enemy(1, 3);
 	public static Enemy enemy2 = new Enemy(2, 3);
 	public static Enemy enemy4 = new Enemy(3, 3);
@@ -31,13 +39,23 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private SliderInput powerSlider = new SliderInput(50, 210, 150, 0, "Power");
 	private Cannon cannon = new Cannon();
 	
-    public GamePanel(double lv, GameFrame.ScoreManager sManager){
+    public GamePanel(int lv, GameFrame.ScoreManager sManager){
     	super();
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		setFocusable(true);
 		requestFocus();
 		addMouseMotionListener(this);
 		addMouseListener(this);
+
+		scoreManager = sManager;
+		gameTime = 100000;
+
+		if (lv == 1)
+			spawntime = 1300;
+		else if (lv == 2)
+			spawntime = 3200;
+		else
+			spawntime = 6400;
 
 		enemies = new ArrayList<Enemy>();
 		createEnemies();
@@ -71,6 +89,13 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			
 			gameRender();
 			gameDraw();
+			gameTime -= 13;
+			timeDisplay = (int)gameTime/1000;
+			// System.out.println(timeDisplay);
+			scoreManager.setTime(timeDisplay);
+			scoreManager.updateDisplay();
+			
+			
 			
 
 			//fps
@@ -165,4 +190,5 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public void mouseReleased(MouseEvent e) {}
 	@Override
 	public void mousePressed(MouseEvent e) {}
+
 }

@@ -117,10 +117,13 @@ public class Cannon {
 				if(isColliding(balls.get(i).getX(), balls.get(i).getY(), 
 					GamePanel.enemies.get(j).getX(), GamePanel.enemies.get(j).getY(), 
 					balls.get(i).getDiameter(), GamePanel.enemies.get(j).getRadius())){
-						System.out.println("HIT");
+						if (GamePanel.enemies.get(j).getSpawntime() > 0)
+							continue;
+						// System.out.println("HIT");
+						GamePanel.scoreManager.setScore(GamePanel.scoreManager.getScore()+10);
 						// balls.clear();
 						GamePanel.enemies.get(j).setHit(true);
-						GamePanel.enemies.get(j).setSpawntime(50000);		
+						GamePanel.enemies.get(j).setSpawntime(GamePanel.spawntime);		
 				}
 			}
 
