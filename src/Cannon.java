@@ -14,10 +14,7 @@ public class Cannon {
 	private int clearButtonY = 25;
 	private int clearButtonWidth = 100;
 	private int clearButtonHeight = 40;
-
-	private int colorSelectionX = 50;
-	private int colorSelectionY = 75;
-	private int colorBoxWidth = 20;
+	
 	private Color colorSelected = new Color(85, 85, 85);
 
 	private int diameter = 100;
@@ -93,6 +90,7 @@ public class Cannon {
 		if (GamePanel.click == true && GamePanel.cursorX > fireButtonX
 				&& GamePanel.cursorX < fireButtonX + fireButtonWidth && GamePanel.cursorY > fireButtonY
 				&& GamePanel.cursorY < fireButtonY + fireButtonHeight) {
+			balls.clear();
 			balls.add(new Ball(ballX, ballY, diameter,
 					(int) (((double) power * -1) - ((double) power * -1) / ((double) 157) * (angle * -1)),
 					(int) (((double) power * -1) / ((double) 157) * (angle * -1)), colorSelected));
@@ -113,6 +111,24 @@ public class Cannon {
 			g.fillOval(balls.get(i).getX(), balls.get(i).getY(), balls.get(i).getDiameter(),
 					balls.get(i).getDiameter());
 			balls.get(i).update();
+
+			// If ball collide with enemy
+			for(int j = 0; j < GamePanel.enemies.size(); j++){
+				if(isColliding(balls.get(i).getX(), balls.get(i).getY(), 
+					GamePanel.enemies.get(j).getX(), GamePanel.enemies.get(j).getY(), 
+					balls.get(i).getDiameter(), GamePanel.enemies.get(j).getRadius())){
+						System.out.println("HIT");
+						// balls.clear();
+						GamePanel.enemies.get(j).setHit(true);
+						GamePanel.enemies.get(j).setSpawntime(50000);		
+				}
+			}
+
+			// If ball hit bottom
+			if (balls.get(0).getY() + balls.get(0).getDiameter() >= GamePanel.HEIGHT) {
+				balls.clear();
+			}
+			
 
 		}
 
@@ -154,5 +170,18 @@ public class Cannon {
 		return new int[] { x, y };
 
 	}
+
+	private boolean isColliding(double x1, double y1, double x2, double y2, int r1, int r2)
+    {
+        double dx = x1 - x2;
+        double dy = y1 - y2;
+        double distance = Math.sqrt(dx * dx + dy * dy)+70;
+        
+        if(distance < r1 + r2)
+        {
+            return true;
+        }
+        return false;
+    }
 
 }
