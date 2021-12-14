@@ -134,6 +134,7 @@ public class Enemy {
     public int getLevel() {return level;}
     public int getLives() {return lives;}
     public boolean gotHit() {return hit;}
+	public long getSpawntime(){return spawntime;}
     public boolean isSlow() {return slow;}
     
     public void setX(double x) {this.x = x;}
@@ -185,7 +186,7 @@ public class Enemy {
     }
     
     public Graphics2D draw(Graphics2D g) {
-    	if(hit == false && spawntime == 0) {
+    	if(hit == false && spawntime <= 0) {
     		g.setColor(color1);
     		g.fillOval((int) (x-radius),(int)(y-radius),(2*radius),(2*radius));
     		g.setStroke(new BasicStroke(3));

@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public static long spawntime;
 	public static long gameTime;
 	private int timeDisplay;
+	public static GameFrame.ScoreManager scoreManager;
 	
 
 	public static Enemy enemy1 = new Enemy(1, 3);
@@ -46,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		addMouseMotionListener(this);
 		addMouseListener(this);
 
+		scoreManager = sManager;
 		gameTime = 100000;
 
 		if (lv == 1)
@@ -89,7 +91,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			gameDraw();
 			gameTime -= 13;
 			timeDisplay = (int)gameTime/1000;
-			System.out.println(timeDisplay);
+			// System.out.println(timeDisplay);
+			scoreManager.setTime(timeDisplay);
+			scoreManager.updateDisplay();
+			
 			
 			
 

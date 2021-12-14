@@ -73,7 +73,7 @@ public class GameFrame extends JFrame {
         scorePanel.setLayout(scorePanelLayout);
 
         // Life Score
-        JLabel lifeLabel = new JLabel(playerName + " life:");
+        JLabel lifeLabel = new JLabel(playerName + " Time:");
         lifeLabel.setForeground(Color.WHITE);
         lifeLabel.setHorizontalAlignment(JLabel.RIGHT);
         scorePanel.add(lifeLabel);
@@ -118,14 +118,14 @@ public class GameFrame extends JFrame {
 
     public class ScoreManager {
         private int time;
-        private double score;
+        private int score;
 
         public ScoreManager(int initialTime, int initialScore) {
             time = initialTime;
             score = initialScore;
         }
 
-        private void updateDisplay() {
+        public void updateDisplay() {
             if (time < 0)
                 time = 0;
 
@@ -153,9 +153,13 @@ public class GameFrame extends JFrame {
             }
         }
 
-        private void setTime(int time){
+        public void setTime(int time){
             this.time = time;
         }
+        public void setScore(int score){
+            this.score = score;
+        }
+        public int getScore(){return score;}
 
         public String getHighScore() {
             FileReader readFile = null;
