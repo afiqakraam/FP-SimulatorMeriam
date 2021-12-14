@@ -14,7 +14,7 @@ public class Cannon {
 	private int clearButtonY = 25;
 	private int clearButtonWidth = 100;
 	private int clearButtonHeight = 40;
-	
+
 	private Color colorSelected = new Color(85, 85, 85);
 
 	private int diameter = 100;
@@ -175,7 +175,7 @@ public class Cannon {
     {
         double dx = x1 - x2;
         double dy = y1 - y2;
-        double distance = Math.sqrt(dx * dx + dy * dy)+70;
+        double distance = Math.sqrt(dx * dx + dy * dy);
         
         if(distance < r1 + r2)
         {
