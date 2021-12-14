@@ -20,21 +20,44 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private BufferedImage image;
 	private Graphics2D g;
 	private int fps = 60;
+
 	public static ArrayList<Enemy> enemies;
-	public ArrayList<Ball> balls = new ArrayList<Ball>(); 
+
+	public static long spawntime;
+	public static long gameTime;
+	private int timeDisplay;
+	public static GameFrame.ScoreManager scoreManager;
+	
+
+	public static Enemy enemy1 = new Enemy(1, 3);
+	public static Enemy enemy2 = new Enemy(2, 3);
+	public static Enemy enemy4 = new Enemy(3, 3);
+	public static Enemy enemy3 = new Enemy(1, 3);
+	
+	
 	private SliderInput angleSlider = new SliderInput(50, 70, 157, 0, "Angle");
 	private SliderInput sizeSlider = new SliderInput(50, 140, 0, 75, "Size");
 	private SliderInput powerSlider = new SliderInput(50, 210, 150, 0, "Power");
 	private Cannon cannon = new Cannon();
 	
-    public GamePanel(double spawnTime, GameFrame.ScoreManager sManager){
-    	
+    public GamePanel(int lv, GameFrame.ScoreManager sManager){
     	super();
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		setFocusable(true);
 		requestFocus();
 		addMouseMotionListener(this);
 		addMouseListener(this);
+
+		scoreManager = sManager;
+		gameTime = 100000;
+
+		if (lv == 1)
+			spawntime = 1300;
+		else if (lv == 2)
+			spawntime = 3200;
+		else
+			spawntime = 6400;
+
 		enemies = new ArrayList<Enemy>();
 		balls = new ArrayList<Ball>();
 		createEnemies();
@@ -68,6 +91,14 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			
 			gameRender();
 			gameDraw();
+			gameTime -= 13;
+			timeDisplay = (int)gameTime/1000;
+			// System.out.println(timeDisplay);
+			scoreManager.setTime(timeDisplay);
+			scoreManager.updateDisplay();
+			
+			
+			
 
 			//fps
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
@@ -172,20 +203,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
 	}
-
-	//if object is colliding
-	private boolean isColliding(double x1, double y1, double x2, double y2, int r1, int r2)
-    {
-        double dx = x1 - x2;
-        double dy = y1 - y2;
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if(distance < r1 + r2)
-        {
-            return true;
-        }
-        return false;
-    }
 	
 	//-------------------- MOUSE LISTENING -----------------//
 	static boolean dragging = false;
@@ -222,4 +239,5 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public void mouseReleased(MouseEvent e) {}
 	@Override
 	public void mousePressed(MouseEvent e) {}
+
 }

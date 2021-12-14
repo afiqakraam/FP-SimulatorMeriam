@@ -66,14 +66,6 @@ public class Ball {
 		velocity = velocity + 0.4; //Gravity
 		y = y + velocity;
 		
-		// if it hits the bottom
-		if (y + diameter >= GamePanel.HEIGHT) {
-			velocity = velocity *-1 + 2;
-			//If it won't be able to bounce back
-			if (velocity + 0.4 + y + diameter >= GamePanel.HEIGHT) {
-				y = GamePanel.HEIGHT - diameter;
-			}
-		}
 		
 		
 	}
