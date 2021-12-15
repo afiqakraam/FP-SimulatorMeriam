@@ -45,43 +45,43 @@ public class Enemy {
     		color1 = Color.RED;
     		if(level == 1) {
     			speed = 6;
-    			radius = 20;
+    			radius = 50;
     			lives = 1;
-    			spawntime = 0;
+    	
     		}
     		else if(level == 2) {
     			speed = 8;
-    			radius = 15;
+    			radius = 45;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     		else if(level == 3) {
     			speed = 10;
-    			radius = 50;
+    			radius = 40;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     	}
     	else if (type == 2) {
     		color1 = Color.BLUE;
     		if(level == 1 ) {
     			speed = 8;
-    			radius = 15;
+    			radius = 45;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     		else if(level == 2 ) {
     			speed = 10;
-    			radius = 10;
+    			radius = 40;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     		
     		else if(level == 3 ) {
     			speed = 12;
-    			radius = 50;
+    			radius = 35;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     	}
     	
@@ -89,22 +89,22 @@ public class Enemy {
     		color1 = Color.GREEN;
     		if(level == 1 ) {
     			speed = 8;
-    			radius = 15;
+    			radius = 35;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     		else if(level == 2 ) {
     			speed = 10;
-    			radius = 10;
+    			radius = 30;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     		
     		else if(level == 3 ) {
     			speed = 12;
-    			radius = 7;
+    			radius = 25;
     			lives = 1;
-    			spawntime = 0;
+    			
     		}
     	}
     	
@@ -219,7 +219,7 @@ public class Enemy {
             dy = -dy;
         }
         
-        if(y > 550 - radius && dy > 0)
+        if(y > 700 - radius && dy > 0)
         {
             dy = -dy;
         }

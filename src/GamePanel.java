@@ -8,12 +8,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.util.Timer;
 
 public class GamePanel extends JPanel implements Runnable, MouseListener, MouseMotionListener{
 	
-	public static final int WIDTH = 1920;
-	public static final int HEIGHT = 970;
+	public static final int WIDTH = 1200;
+	public static final int HEIGHT = 700;
 	
 	private Thread thread;
 	private boolean running;
@@ -24,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public static ArrayList<Enemy> enemies;
 
 	public static long spawntime;
+	// public static long difficulties;
 	public static long gameTime;
 	private int timeDisplay;
 	public static GameFrame.ScoreManager scoreManager;
@@ -49,18 +49,23 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		addMouseListener(this);
 
 		scoreManager = sManager;
-		gameTime = 100000;
-
-		if (lv == 1)
-			spawntime = 1300;
-		else if (lv == 2)
-			spawntime = 3200;
-		else
-			spawntime = 6400;
-
+		gameTime = 60000;
 		enemies = new ArrayList<Enemy>();
-		balls = new ArrayList<Ball>();
-		createEnemies();
+		if (lv == 2){
+			spawntime = 3200;
+			createEnemies(2);
+		}
+			
+		else if (lv == 3){
+			spawntime = 6400;
+			createEnemies(3);
+		}
+			
+		else{ //untuk level 1 ada bug maka dari itu saya taruh di else
+			spawntime = 1200;
+			createEnemies(1);
+		}
+			
 		
     }
 
@@ -109,28 +114,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			catch (Exception e) {}
 			
 		}
-		for(int i = 0; i < balls.size(); i++)
-        {
-            Ball b = balls.get(i);
-            double bx = b.getX();
-            double by = b.getY();
-            int br = b.getDiameter();
-            for(int j = 0; j < enemies.size(); j++)
-            {
-                Enemy e = enemies.get(j);
-                double ex = e.getX();
-                double ey = e.getY();
-                int er = e.getRadius();
-                
-                if(isColliding(bx, by, ex, ey, br, er) == true)
-                {
-                    // e.loseLife(1);
-                    balls.remove(i);
-                    i--;
-                    break;
-                }
-            }
-        }
 	}
 
 	private void gameRender() {
@@ -149,6 +132,13 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g = sizeSlider.draw(g);
 		g = powerSlider.draw(g);
 		
+		//Draw enemies Enemies manual declaration
+		// g = enemy1.draw(g);
+		// g = enemy2.draw(g);
+		// g = enemy3.draw(g);
+		// g = enemy4.draw(g);
+		// g = enemy2.draw(g);
+		
 		//Draw Array of Enemies
 		for(int i  = 0; i < enemies.size(); i++){
 			g=enemies.get(i).draw(g);
@@ -156,43 +146,38 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		
 	}
 
-	public void createEnemies(){
-		int difficulties = 1;
+	public void createEnemies(int level){
 		enemies.clear();
-		// EASY LEVEL
-		if(difficulties == 1){
-			for(int i = 0; i < 3; i++){				
-				enemies.add(new Enemy(1,1));
-				
-			}
+		if(level == 1){
 			for(int i = 0; i < 3; i++){
+				enemies.add(new Enemy(1,1));
+			}
+			for(int i = 0; i < 2; i++){
 				enemies.add(new Enemy(2,1));
 			}
-			for(int i = 0; i < 3; i++){
+			for(int i = 0; i < 1; i++){
 				enemies.add(new Enemy(3,1));
 			}
 		}
-		//MEDIUM LEVEL
-		if(difficulties == 2){
-			for(int i = 0; i < 4; i++){
+		else if(level == 2){
+			for(int i = 0; i < 3; i++){
 				enemies.add(new Enemy(1,2));
 			}
-			for(int i = 0; i < 4; i++){
+			for(int i = 0; i < 2; i++){
 				enemies.add(new Enemy(2,2));
 			}
-			for(int i = 0; i < 5; i++){
+			for(int i = 0; i < 1; i++){
 				enemies.add(new Enemy(3,2));
 			}
 		}
-		//HARD LEVEL
-		if(difficulties == 3){
-			for(int i = 0; i < 5; i++){
+		else if(level == 3){
+			for(int i = 0; i < 3; i++){
 				enemies.add(new Enemy(1,3));
 			}
-			for(int i = 0; i < 5; i++){
+			for(int i = 0; i < 2; i++){
 				enemies.add(new Enemy(2,3));
 			}
-			for(int i = 0; i < 6; i++){
+			for(int i = 0; i < 1; i++){
 				enemies.add(new Enemy(3,3));
 			}
 		}

@@ -120,6 +120,7 @@ public class Cannon {
 						if (GamePanel.enemies.get(j).getSpawntime() > 0)
 							continue;
 						// System.out.println("HIT");
+						
 						GamePanel.scoreManager.setScore(GamePanel.scoreManager.getScore()+10);
 						// balls.clear();
 						GamePanel.enemies.get(j).setHit(true);
@@ -182,6 +183,9 @@ public class Cannon {
         
         if(distance < r1 + r2)
         {
+			for(int i = 0; i < balls.size(); i++){
+				
+			}
             return true;
         }
         return false;
