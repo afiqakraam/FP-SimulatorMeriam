@@ -63,7 +63,7 @@ public class Ball {
 		//-------- Y ----------//
 		
 		velocity = velocity * 0.999; //Air resistance
-		velocity = velocity + 0.4; //Gravity
+		velocity = velocity + 0.4; 
 		y = y + velocity;
 		
 		
