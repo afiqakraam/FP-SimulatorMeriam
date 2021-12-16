@@ -10,10 +10,6 @@ public class Cannon {
 	private int fireButtonY = 350;
 	private int fireButtonWidth = 100;
 	private int fireButtonHeight = 50;
-	private int clearButtonX = 1075;
-	private int clearButtonY = 25;
-	private int clearButtonWidth = 100;
-	private int clearButtonHeight = 40;
 
 	private Color colorSelected = new Color(85, 85, 85);
 
@@ -97,14 +93,6 @@ public class Cannon {
 			GamePanel.click = false;
 		}
 
-		// If clear button is clicked
-		if (GamePanel.click == true && GamePanel.cursorX > clearButtonX
-				&& GamePanel.cursorX < clearButtonX + fireButtonWidth && GamePanel.cursorY > clearButtonY
-				&& GamePanel.cursorY < clearButtonY + clearButtonHeight) {
-			balls.removeAll(balls);
-			GamePanel.click = false;
-		}
-
 		// Draw balls
 		for (int i = 0; i < balls.size(); i++) {
 			g.setColor(balls.get(i).getColor());
@@ -148,14 +136,6 @@ public class Cannon {
 		Font f = new Font("Calibri", Font.BOLD, 48);
 		g.setFont(f);
 		g.drawString("FIRE", fireButtonX + 7, fireButtonY + fireButtonHeight - 10);
-
-		// clear button
-		g.setColor(Color.CYAN);
-		g.fillRect(clearButtonX, clearButtonY, clearButtonWidth, clearButtonHeight);
-		g.setColor(Color.BLACK);
-		f = new Font("Calibri", Font.BOLD, 32);
-		g.setFont(f);
-		g.drawString("CLEAR", clearButtonX + 7, clearButtonY + clearButtonHeight - 10);
 
 		return g;
 	}
