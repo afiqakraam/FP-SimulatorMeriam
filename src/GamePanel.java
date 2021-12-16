@@ -23,17 +23,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public static ArrayList<Enemy> enemies;
 
 	public static long spawntime;
-	// public static long difficulties;
 	public static long gameTime;
 	private int timeDisplay;
 	public static GameFrame.ScoreManager scoreManager;
-	
-
-	public static Enemy enemy1 = new Enemy(1, 3);
-	public static Enemy enemy2 = new Enemy(2, 3);
-	public static Enemy enemy4 = new Enemy(3, 3);
-	public static Enemy enemy3 = new Enemy(1, 3);
-	
 	
 	private SliderInput angleSlider = new SliderInput(50, 70, 157, 0, "Angle");
 	private SliderInput sizeSlider = new SliderInput(50, 140, 0, 75, "Size");
@@ -98,12 +90,8 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			gameDraw();
 			gameTime -= 13;
 			timeDisplay = (int)gameTime/1000;
-			// System.out.println(timeDisplay);
 			scoreManager.setTime(timeDisplay);
 			scoreManager.updateDisplay();
-			
-			
-			
 
 			//fps
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
@@ -131,13 +119,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		g = angleSlider.draw(g);
 		g = sizeSlider.draw(g);
 		g = powerSlider.draw(g);
-		
-		//Draw enemies Enemies manual declaration
-		// g = enemy1.draw(g);
-		// g = enemy2.draw(g);
-		// g = enemy3.draw(g);
-		// g = enemy4.draw(g);
-		// g = enemy2.draw(g);
 		
 		//Draw Array of Enemies
 		for(int i  = 0; i < enemies.size(); i++){
