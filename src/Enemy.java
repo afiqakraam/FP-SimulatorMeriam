@@ -35,6 +35,8 @@ public class Enemy {
     private long hitTimer;
     
     private boolean slow;
+
+	Sound sound = new Sound();
 	
     public Enemy(int type,int level) {
     	
@@ -176,6 +178,7 @@ public class Enemy {
         
         if(hit == true)
         {
+			sound.playSE(0);
             long elapsedTime = (System.nanoTime() - hitTimer) / 1000000;
             if(elapsedTime > 50)
             {

@@ -32,6 +32,8 @@ public class GameFrame extends JFrame {
     private ScoreManager scoreManager;
     private String highScore;
 
+    Sound sound = new Sound();
+
     public GameFrame(MainMenu mainMenu, String playerName, int lv) {
         super("Simulator Meriam : " + playerName + ": " + lv);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -131,6 +133,7 @@ public class GameFrame extends JFrame {
 
             timeDisplay.setText(Long.toString(Math.round(time)));
             scoreDisplay.setText(Long.toString(Math.round(score)));
+            
 
             if (time < 20)
                 timeDisplay.setForeground(Color.red);
@@ -140,6 +143,9 @@ public class GameFrame extends JFrame {
                 timeDisplay.setForeground(Color.green);
 
             if (time <= 0) {
+                
+                //Level End SoundEffect
+                sound.playSE(2);
                 // The player has died
 
                 // Notify player that game is over
