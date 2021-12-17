@@ -31,8 +31,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private SliderInput sizeSlider = new SliderInput(50, 140, 0, 75, "Size");
 	private SliderInput powerSlider = new SliderInput(50, 210, 150, 0, "Power");
 	private Cannon cannon = new Cannon();
+
+	private String playerName;
 	
-    public GamePanel(int lv, GameFrame.ScoreManager sManager){
+    public GamePanel(String playerName, int lv, GameFrame.ScoreManager sManager){
     	super();
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		setFocusable(true);
@@ -40,8 +42,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		addMouseMotionListener(this);
 		addMouseListener(this);
 
+		this.playerName = playerName;
 		scoreManager = sManager;
-		gameTime = 60000;
+		gameTime = 6000;
 		enemies = new ArrayList<Enemy>();
 		if (lv == 2){
 			spawntime = 3200;
@@ -91,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			gameTime -= 13;
 			timeDisplay = (int)gameTime/1000;
 			scoreManager.setTime(timeDisplay);
-			scoreManager.updateDisplay();
+			scoreManager.updateDisplay(playerName);
 
 			//fps
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;

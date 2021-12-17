@@ -1,6 +1,10 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.BorderLayout;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +15,7 @@ public class HighScore extends JFrame {
     JLabel highScore;
     JLabel dummyData;
     MainMenu mainMenu;
+
 
     public HighScore(MainMenu mainMenu){
         super("Highscore");
@@ -30,13 +35,29 @@ public class HighScore extends JFrame {
         hsPanel.add(highScore, BorderLayout.NORTH);
 
         dummyData = new JLabel();
-        dummyData.setText("<html>1. Peter Parker   120<br>2. Doctor O   100<br>3. Tobey   70<br></html>");
         dummyData.setFont(normalFont);
         dummyData.setForeground(Color.WHITE);
         dummyData.setHorizontalAlignment(JLabel.CENTER);
+        readFile();
+
         hsPanel.add(dummyData,BorderLayout.CENTER);
         add(hsPanel, BorderLayout.CENTER);
         setLocationRelativeTo(null);
+    }
+
+    public void readFile(){
+        try{
+            File hs = new File("highscore.txt");
+            Scanner reader = new Scanner(hs);
+            while(reader.hasNextLine()){
+                String data = reader.nextLine();
+                dummyData.setText("<html>" + dummyData.getText() + "<br/>" + data);
+            }
+            reader.close();
+        }catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -44,5 +65,6 @@ public class HighScore extends JFrame {
         super.dispose();
         mainMenu.setVisible(true);
     }
+
     
 }

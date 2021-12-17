@@ -4,8 +4,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Formatter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,7 +34,7 @@ public class GameFrame extends JFrame {
     private JLabel scoreDisplay;
 
     private ScoreManager scoreManager;
-    private String highScore;
+    public static File highScore;
 
     Sound sound = new Sound();
 
@@ -44,7 +48,7 @@ public class GameFrame extends JFrame {
         this.mainMenu = mainMenu;
 
         // High Score
-        highScore = this.getHighScore();
+        openFile();
 
         // Score Manager
         scoreManager = new ScoreManager(STARTING_TIME, STARTING_SCORE);
@@ -100,16 +104,34 @@ public class GameFrame extends JFrame {
 
         add(headerPanel, BorderLayout.NORTH);
 
-        gamePanel = new GamePanel(lv, scoreManager);
+        gamePanel = new GamePanel(playerName, lv, scoreManager);
         add(gamePanel, BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
     }
 
-    private String getHighScore() {
-        // TODO Auto-generated method stub
-        return null;
+    public void openFile(){
+        try{
+            highScore = new File("highscore.txt");
+
+        }
+        catch(SecurityException securityException){
+            System.err.println("Write permission denied. Terminating.");
+            System.exit(1);
+        }
+    }
+
+    public void writeFile(String playerName, int score){
+        try {
+            FileWriter myWriter = new FileWriter("highscore.txt", true);
+            myWriter.write(playerName + " " + score + "\n");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
     }
 
     @Override
@@ -127,7 +149,7 @@ public class GameFrame extends JFrame {
             score = initialScore;
         }
 
-        public void updateDisplay() {
+        public void updateDisplay(String playerName) {
             if (time < 0)
                 time = 0;
 
@@ -143,7 +165,7 @@ public class GameFrame extends JFrame {
                 timeDisplay.setForeground(Color.green);
 
             if (time <= 0) {
-                
+                writeFile(playerName, score);
                 //Level End SoundEffect
                 sound.playSE(2);
                 // The player has died
@@ -167,23 +189,5 @@ public class GameFrame extends JFrame {
         }
         public int getScore(){return score;}
 
-        public String getHighScore() {
-            FileReader readFile = null;
-            BufferedReader reader = null;
-            try {
-                readFile = new FileReader("highscore.txt");
-                reader = new BufferedReader(readFile);
-                return reader.readLine();
-            } catch (Exception e) {
-                return "Nobody:0";
-            } finally {
-                try {
-                    if (reader != null)
-                        reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }
